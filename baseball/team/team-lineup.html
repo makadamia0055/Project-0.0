@@ -13,10 +13,46 @@
 	<link rel="stylesheet" href="./team_common.css">
 	<style>
 		.bsPark{
+			position: relative;
 			display: inline-block;
-			width: 800px; height: 600px;
+			width: 1000px; height: 600px;
+			border-radius: 5px;
 			background-image: url(./baseballpark.jpg);
-			background-size: 800px 600px;
+			background-size: 1000px 600px;
+		}
+		.bench{
+			position: absolute;
+			bottom:0px;
+			width: 0;
+			height:0;
+			border-bottom: 100px solid lightgray;
+			border-top: 150px solid transparent;
+			border-left: 200px solid lightgray;
+			border-right: 200px solid transparent;
+		}
+		.right-panel{
+			float: right;
+		}
+		.box-player{
+			border: 1px solid black;
+			background-color: rgb(255, 255, 255);
+			border-radius: 5px;
+		}
+		.box-player.selected{
+			background-color: rgb(243, 241, 111);
+		}
+		.icon-player{
+			width: 75px;
+			height: 75px;
+			border-radius: 32px;
+		}
+		.table-position{
+			background-color: aliceblue;
+		}
+		.table-bench{
+			position: absolute;
+			bottom: -100px;
+
 		}
 	</style>
 </head>
@@ -30,8 +66,21 @@
 			
 			<div>선수 리스트</div>
 			<div class="d-flex flex-wrap">
-				<a href="#" draggable="true">선수 1</a>
+				<a href="#" class="box-player" draggable="true" data-plnum="1">
+					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
+					<div class="name-player">77.선수이름1</div>
+					<div class="">
+						<span class="badge badge-pill badge-danger">투</span>
+					</div>
+					
+
+				</a>
+				
+
+				</a>
 			</div>
+
+			<div>용병리스트</div>
 			<div>지난 경기 리스트 불러오기</div>
 
 		</aside>
@@ -41,15 +90,112 @@
 
 		</div>
 		<div class="bsPark">
-			
-			<a href="https://kr.freepik.com/free-vector/baseball-field-isometric-composition_23505339.htm#query=%EC%95%BC%EA%B5%AC%EC%9E%A5&position=1&from_view=keyword&track=robertav1_2_sidr">작가 macrovector</a> 출처 Freepik
+			<div class="d-flex flex-nowrap">
+				<table class="table table-bordered table-position">
+					<thead>
+						<tr>
+							<th class="" data-position="1">투수</th>
+							<th class="" data-position="2">포수</th>
+							<th class="" data-position="3">1루수</th>
+							<th class="" data-position="4">2루수</th>
+							<th class="" data-position="5">3루수</th>
+							<th class="" data-position="6">유격수</th>
+							<th class="" data-position="7">중견수</th>
+							<th class="" data-position="8">좌익수</th>
+							<th class="" data-position="9">우익수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-position="1"></td>
+							<td data-position="2"></td>
+							<td data-position="3"></td>
+							<td data-position="4"></td>
+							<td data-position="5"></td>
+							<td data-position="6"></td>
+							<td data-position="7"></td>
+							<td data-position="8"></td>
+							<td data-position="9"></td>
+						</tr>
+					</tbody>
+
+				</table>
+				
+
+			</div>
+			<div class="bench"></div>
+			<table class="table table-bordered table-bench">
+				<thead>
+					<tr>
+						<th class="" data-position="1">벤치</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td data-position="1"></td>
+						
+					</tr>
+				</tbody>
+
+			</table>
 		</div>
 
-		<div>
+		<div class="right-panel">
 			 <button type="button" class="btn btn-pill btn-primary">중간 저장</button>
 			 <button type="button" class="btn btn-pill btn-primary">초기화</button>
-			 <button type="button" class="btn btn-pill btn-primary">제출</button>
+			 <button type="button" class="btn btn-pill btn-primary">제출</button><br>
+			 <a href="https://kr.freepik.com/free-vector/baseball-field-isometric-composition_23505339.htm#query=%EC%95%BC%EA%B5%AC%EC%9E%A5&position=1&from_view=keyword&track=robertav1_2_sidr">구장 이미지 작가 macrovector</a> 출처 Freepik
+
 		</div>
+		<form action="POST">
+			
+		</form>
 	</section>
+
 </body>
+<script>
+	let playerBox = $('.box-player');
+	let tableBox = $('.table-position th');
+	let tableTd = $('.table-position td');
+	let bench = $('.bench');
+	playerBox.on("dragstart", function(e){
+		e.originalEvent.dataTransfer.setData('plnum', $(e.target).data("plnum"))
+	})
+	tableBox.on("dragover", (e)=>{
+		e.preventDefault();
+	})
+	tableBox.on("drop", (e)=>{
+		e.preventDefault();
+		var data = e.originalEvent.dataTransfer.getData('plnum')
+		let playerName ;
+		for(let i of playerBox) {
+			if($(i).data('plnum')==data){
+				playerName = $(i).find('.name-player').text(); 
+			}
+		}
+		let position = $(e.target).data('position');
+		console.log(tableTd)
+		for(let j of tableTd){
+			if($(j).data('position')==position){
+				$(j).text(playerName);
+			}
+		}
+	})
+	tableTd.on("dragover", (e)=>{
+		e.preventDefault();
+	})
+	tableTd.on("drop", (e)=>{
+		e.preventDefault();
+		var data = e.originalEvent.dataTransfer.getData('plnum')
+		let playerName ;
+		for(let i of playerBox) {
+			if($(i).data('plnum')==data){
+				playerName = $(i).find('.name-player').text(); 
+			}
+		}
+		$(e.target).text(playerName);
+	})
+	
+</script>
 </html>
