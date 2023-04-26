@@ -20,7 +20,7 @@
 			background-image: url(./baseballpark.jpg);
 			background-size: 1000px 600px;
 		}
-		.bench{
+		/* .bench{
 			position: absolute;
 			bottom:0px;
 			width: 0;
@@ -29,7 +29,7 @@
 			border-top: 150px solid transparent;
 			border-left: 200px solid lightgray;
 			border-right: 200px solid transparent;
-		}
+		} */
 		.right-panel{
 			float: right;
 		}
@@ -47,8 +47,66 @@
 			border-radius: 32px;
 		}
 		.table-position{
-			background-color: aliceblue;
+			table-layout: fixed;
+			background-color: rgba(255, 255, 255, 0.8);
+			position: absolute;
+			display: inline-block;
+			border-radius: 5px;
+			height: 100px; width: 100px;
 		}
+		.table-position tr{
+			width: 100px;
+			
+		}
+		.table-position th{
+			width: 100%;
+			text-align: center;
+			padding: 0px;
+
+		}
+		.table-position[data-position="1"]{
+			top: 350px;
+			left: 450px;
+		}
+		.table-position[data-position="2"]{
+			bottom: -16px;
+			left: 450px;
+		}
+		.table-position[data-position="3"]{
+			top: 350px;
+			left: 720px;
+		}
+		.table-position[data-position="4"]{
+			top: 200px;
+			left: 450px;
+		}
+		.table-position[data-position="5"]{
+			top: 350px;
+			right: 720px;
+		}
+		.table-position[data-position="6"]{
+			top: 250px;
+			right: 600px;
+		}
+		.table-position[data-position="7"]{
+			top: 100px;
+			left: 720px;
+		}
+		.table-position[data-position="8"]{
+			top: 50px;
+			left: 450px;
+		}
+		.table-position[data-position="9"]{
+			top: 100px;
+			right: 720px;
+		}
+		col{
+			width: 100%;
+		}
+
+
+
+
 		.table-bench{
 			position: absolute;
 			bottom: -100px;
@@ -90,36 +148,127 @@
 
 		</div>
 		<div class="bsPark">
-			<div class="d-flex flex-nowrap">
-				<table class="table table-bordered table-position">
+			<div class="">
+				<table class="table table-bordered table-position" data-position="1">
+					
 					<thead>
 						<tr>
 							<th class="" data-position="1">투수</th>
-							<th class="" data-position="2">포수</th>
-							<th class="" data-position="3">1루수</th>
-							<th class="" data-position="4">2루수</th>
-							<th class="" data-position="5">3루수</th>
-							<th class="" data-position="6">유격수</th>
-							<th class="" data-position="7">중견수</th>
-							<th class="" data-position="8">좌익수</th>
-							<th class="" data-position="9">우익수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td data-position="1"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="2">
+					<thead>
+						<tr>
+							<th class="" data-position="2">포수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="2"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="3">
+					<thead>
+						<tr>
+							<th class="" data-position="3">1루수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="3"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="4">
+					<thead>
+						<tr>
+							<th class="" data-position="4">2루수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="4"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="5">
+					<thead>
+						<tr>
+							<th class="" data-position="5">3루수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="5"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="6">
+					<thead>
+						<tr>
+							<th class="" data-position="6">유격수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="6"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="7">
+					<thead>
+						<tr>
+							<th class="" data-position="7">우익수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="7"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="8">
+					<thead>
+						<tr>
+							<th class="" data-position="8">중견수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="8"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-bordered table-position" data-position="9">
+					<thead>
+						<tr>
+							<th class="" data-position="9">좌익수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td data-position="9"></td>
 						</tr>
 					</tbody>
-
 				</table>
+
+				
+				
 				
 
 			</div>
@@ -155,10 +304,51 @@
 
 </body>
 <script>
+	let _ml_ms_num = '${ms_num}';
+	LineUp = {
+		line : [],
+
+		add(ml_tp_num){
+			this.line.push(LUObj(ml_tp_num));
+		},
+		delete(ml_tp_num){
+			for(let i = 0; i<this.line.length; i++){
+				if(this.line[i].ml_tp_num==ml_tp_num){
+					this.line.splice(i, 1);
+				}
+			}
+		},
+		search(ml_tp_num){
+			return this.line.find(el=>el.ml_tp_num==ml_tp_num);
+		}, 
+		scan(){
+			
+		}
+	}
+	function LUObj(ml_tp_num){
+		this.ml_ms_num = _ml_ms_num;
+		this.ml_tp_num = ml_tp_num;
+
+	}
+	function LUObj(ml_tp_num, ml_battingorder, ml_type, ml_po_num){
+		this.ml_ms_num = _ml_ms_num;
+		this.ml_tp_num = ml_tp_num;
+		this.ml_battingorder = ml_battingorder;
+		this.ml_type = ml_type;
+		this.ml_po_num = ml_po_num;
+
+	}
+	
 	let playerBox = $('.box-player');
 	let tableBox = $('.table-position th');
 	let tableTd = $('.table-position td');
+	let btnPlayer = $('.btn-player');
 	let bench = $('.bench');
+	let str = '<button class="btn btn-sm btn-primary btn-player" draggable="true">'
+	let strEnd = '</button>'
+	let playerName ;
+	let btnPlayerMove = false;
+
 	playerBox.on("dragstart", function(e){
 		e.originalEvent.dataTransfer.setData('plnum', $(e.target).data("plnum"))
 	})
@@ -168,7 +358,6 @@
 	tableBox.on("drop", (e)=>{
 		e.preventDefault();
 		var data = e.originalEvent.dataTransfer.getData('plnum')
-		let playerName ;
 		for(let i of playerBox) {
 			if($(i).data('plnum')==data){
 				playerName = $(i).find('.name-player').text(); 
@@ -178,24 +367,44 @@
 		console.log(tableTd)
 		for(let j of tableTd){
 			if($(j).data('position')==position){
-				$(j).text(playerName);
+				$(j).html(str + playerName + strEnd);
 			}
 		}
 	})
 	tableTd.on("dragover", (e)=>{
+		if(btnPlayerMove){
+			e.originalEvent.dataTransfer.dropEffect = "move";
+		}
 		e.preventDefault();
 	})
+	
 	tableTd.on("drop", (e)=>{
 		e.preventDefault();
+		if(btnPlayerMove){
+			playerName = e.originalEvent.dataTransfer.getData('text');
+			$(e.target).filter(tableTd).html(str + playerName + strEnd);
+			playerName = '';
+			btnPlayerMove = false;
+			return;
+		}
 		var data = e.originalEvent.dataTransfer.getData('plnum')
-		let playerName ;
 		for(let i of playerBox) {
 			if($(i).data('plnum')==data){
 				playerName = $(i).find('.name-player').text(); 
 			}
 		}
-		$(e.target).text(playerName);
+		$(e.target).filter(tableTd).html(str + playerName + strEnd);
+		playerName='';
 	})
+	btnPlayer.on("dragstart", (e)=>{
+		e.originalEvent.dataTransfer.setData("text", $(e.target).text())
+		e.originalEvent.dataTransfer.effectAllowed ="move";
+		btnPlayerMove = true;
+	})
+	btnPlayer.on("dragend", (e)=>{
+		e.target.remove();
+	})
+	
 	
 </script>
 </html>
