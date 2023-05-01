@@ -120,7 +120,25 @@
 			<div class="d-flex flex-wrap">
 				<a href="#" class="box-player" draggable="true" data-plnum="1">
 					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
-					<div class="name-player">77.선수이름1</div>
+					<div class="name-player">11.선수이름1</div>
+					<div class="">
+						<span class="badge badge-pill badge-danger">투</span>
+					</div>
+					
+
+				</a>
+				<a href="#" class="box-player" draggable="true" data-plnum="2">
+					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
+					<div class="name-player">22.선수이름2</div>
+					<div class="">
+						<span class="badge badge-pill badge-danger">투</span>
+					</div>
+					
+
+				</a>
+				<a href="#" class="box-player" draggable="true" data-plnum="3">
+					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
+					<div class="name-player">33.선수이름3</div>
 					<div class="">
 						<span class="badge badge-pill badge-danger">투</span>
 					</div>
@@ -128,8 +146,9 @@
 
 				</a>
 				
+				
 
-				</a>
+				
 			</div>
 
 			<div>용병리스트</div>
@@ -255,6 +274,7 @@
 	let bench = $('.bench');
 	
 	let btnPlayerMove = false;
+	let btnOnBtn = false;
 
 	playerBox.on("dragstart", function(e){
 		e.originalEvent.dataTransfer.setData('text', $(e.target).data("plnum"));
@@ -263,6 +283,7 @@
 	playerBox.on("dragend", function(e){
 		e.originalEvent.target.classList.remove("dragging");
 	})
+
 	tableTd.on("dragover", (e)=>{
 		e.preventDefault();
 	})
@@ -319,11 +340,43 @@
 		})
 		btnPlayer.on("dragend", (e)=>{
 			let data = e.originalEvent.dataTransfer.getData('text');
-			clearPlayerBox(data);
+			if(!btnOnBtn)
+				clearPlayerBox(data);
+			btnPlayerMove = false;
 		})
+		btnPlayer.on("drop", (e)=>{
+			if(btnPlayerMove){
+				btnOnBtn = true;
+				let plnum1 = e.originalEvent.dataTransfer.getData('text');
+				let plnum2 = $(e.originalEvent.target).data("plnum");
+				swapBtnPlayer(plnum1, plnum2);
+				
+			}
+		})
+	
+		
+	}
+	function swapBtnPlayer(plnum1, plnum2){
+		btnPlayer = $('.btn-player');
+		let btn1, btn2;
+		for (let item of btnPlayer) {
+			if($(item).data('plnum')==plnum1){
+				btn1 = item;
+			}
+		}
+		for (let item of btnPlayer) {
+			if($(item).data('plnum')==plnum2){
+				btn2 = item;
+			}
+		}
+		const tmp = $(btn1).clone();
+		$(btn2).parent().append(tmp);
+		$(btn1).parent().append(btn2);
 
 
 	}
+
+
 	// 현재 입력된 드래그 버튼 plnum인수로 받아 지워주는 매서드
 	function clearPlayerBox(data){
 		for(let j of contentBox){
@@ -334,24 +387,7 @@
 	}
 }
 	
-	// tableTd.on("drop", (e)=>{
-	// 	e.preventDefault();
-	// 	if(btnPlayerMove){
-	// 		playerName = e.originalEvent.dataTransfer.getData('text');
-	// 		$(e.target).filter(tableTd).html(str + playerName + strEnd);
-	// 		playerName = '';
-	// 		btnPlayerMove = false;
-	// 		return;
-	// 	}
-	// 	var data = e.originalEvent.dataTransfer.getData('plnum')
-	// 	for(let i of playerBox) {
-	// 		if($(i).data('plnum')==data){
-	// 			playerName = $(i).find('.name-player').text(); 
-	// 		}
-	// 	}
-	// 	$(e.target).filter(tableTd).html(str + playerName + strEnd);
-	// 	playerName='';
-	// })
+	
 	btnPlayer.on("dragstart", (e)=>{
 		e.originalEvent.dataTransfer.setData("text", $(e.target).data('plnum'))
 		// e.originalEvent.dataTransfer.effectAllowed ="move";
