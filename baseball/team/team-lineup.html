@@ -94,18 +94,32 @@
 			top: 100px;
 			right: 720px;
 		}
+		.table-position[data-position="10"]{
+			top: 0px;
+			left: 0px;
+		}
+		
 		col{
 			width: 100%;
 		}
+		.bsPark .reference{
+			position: absolute;
+			bottom: 0px;
+			right : 0px;
+		}
 
 
 
-
-		.table-bench{
+		.bench{
+			display: inline-block;
 			position: absolute;
 			bottom: -100px;
+			border: 1px solid black;
+			width: 1000px;
+			height: 100px;
 
 		}
+		
 	</style>
 </head>
 <body>
@@ -198,31 +212,65 @@
 					<div class="name-position" draggable="false" data-position="9">좌익수</div>
 					<div class="content-position" draggable="false" data-position="9"></div>
 				</div>
+				<div class="table-position" data-position="10" >
+					<div class="name-position form-check-inline" data-position="10" draggable="false">
+						<label class="form-check-label">
+							<input type="checkbox" class="form-check-input checkbox-DH" value="true">지명타자
+						</label>
+					</div>
+					<div class="content-position" draggable="false" data-position="10"></div>
+				</div>
 
 			</div>
-			<div class="bench"></div>
-			<table class="table table-bordered table-bench">
-				<thead>
-					<tr>
-						<th class="" data-position="1">벤치</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td data-position="1"></td>
-						
-					</tr>
-				</tbody>
+			<div class="bench d-flex">
+				<div class="title-bench">벤치</div>
 
-			</table>
+
+			</div>
+			<a class="reference" href="https://kr.freepik.com/free-vector/baseball-field-isometric-composition_23505339.htm#query=%EC%95%BC%EA%B5%AC%EC%9E%A5&position=1&from_view=keyword&track=robertav1_2_sidr">구장 이미지 By 작가 macrovector</a> 출처 Freepik
+
 		</div>
 
 		<div class="right-panel">
+			<div class="container-line_up">
+				<ul class="right-line_up">
+					<li class="form-group">
+						<span>투수</span>
+						<span class="name-player"></span>
+						<label for="order-hit1">타순 : </label>
+						<select name="" class="form-control-inline col-sm-3" id="order-hit1">
+							<option value="0">--</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+
+						</select>
+					</li>
+					<li><span>포수</span></li>
+					<li><span>1루수</span></li>
+					<li><span>2루수</span></li>
+					<li><span>3루수</span></li>
+					<li><span>유격수</span></li>
+					<li><span>우익수</span></li>
+					<li><span>중견수</span></li>
+					<li><span>좌익수</span></li>
+					<li class="line-DH" data-position="10" style="display: none;"><span>지명타자</span></li>
+
+				</ul>
+
+			</div>
+
+
+
 			 <button type="button" class="btn btn-pill btn-primary">중간 저장</button>
 			 <button type="button" class="btn btn-pill btn-primary">초기화</button>
 			 <button type="button" class="btn btn-pill btn-primary">제출</button><br>
-			 <a href="https://kr.freepik.com/free-vector/baseball-field-isometric-composition_23505339.htm#query=%EC%95%BC%EA%B5%AC%EC%9E%A5&position=1&from_view=keyword&track=robertav1_2_sidr">구장 이미지 작가 macrovector</a> 출처 Freepik
 
 		</div>
 		<form action="POST">
@@ -267,34 +315,44 @@
 
 	}
 	
-	let playerBox = $('.box-player');
-	let tableTd = $('.table-position');
-	let contentBox = $('.content-position')
-	let btnPlayer = $('.btn-player');
-	let bench = $('.bench');
+	let $playerBox = $('.box-player');
+	let $tableTd = $('.table-position');
+	let $contentBox = $('.content-position')
+	let $btnPlayer = $('.btn-player');
+	let $bench = $('.bench');
 	
 	let btnPlayerMove = false;
 	let btnOnBtn = false;
 
-	playerBox.on("dragstart", function(e){
+	$playerBox.on("dragstart", function(e){
 		e.originalEvent.dataTransfer.setData('text', $(e.target).data("plnum"));
 		e.originalEvent.target.classList.add("dragging");
 	})
-	playerBox.on("dragend", function(e){
+	$playerBox.on("dragend", function(e){
 		e.originalEvent.target.classList.remove("dragging");
 	})
 
-	tableTd.on("dragover", (e)=>{
-		e.preventDefault();
-	})
-	tableTd.on("drop", (e)=>{
+	
+	$tableTd.on("drop", (e)=>{
 		e.preventDefault();
 		var data = e.originalEvent.dataTransfer.getData('text')
 		putInPlayerBox(data, e);
 
-		
 	})
-	tableTd.on("dragover", (e)=>{
+	$tableTd.on("dragover", (e)=>{
+		if(btnPlayerMove){
+			e.originalEvent.dataTransfer.dropEffect = "move";
+		}
+		e.preventDefault();
+	})
+	// 벤치 멤버
+	$bench.on("drop", (e)=>{
+		e.preventDefault();
+		var data = e.originalEvent.dataTransfer.getData('text')
+		putInBench(data, e);
+
+	})
+	$bench.on("dragover", (e)=>{
 		if(btnPlayerMove){
 			e.originalEvent.dataTransfer.dropEffect = "move";
 		}
@@ -305,7 +363,7 @@
 	function playerBoxFactorymethod(plNum){
 		let str = '<button class="btn btn-sm btn-primary btn-player" draggable="true" data-plnum="'+ plNum+ '">';
 		let playerName;
-		for(let i of playerBox) {
+		for(let i of $playerBox) {
 			if($(i).data('plnum')==plNum){
 				playerName = $(i).find('.name-player').text(); 
 			}
@@ -325,9 +383,9 @@
 		// 	}
 		// }
 		let str = playerBoxFactorymethod(data);
-		let position = $(e.target).data('position');
-		for(let j of contentBox){
-			if($(j).data('position')==position){
+		let $position = $(e.target).data('position');
+		for(let j of $contentBox){
+			if($(j).data('position')==$position){
 				$(j).html(str);
 			}
 		}
@@ -340,23 +398,58 @@
 		})
 		btnPlayer.on("dragend", (e)=>{
 			let data = e.originalEvent.dataTransfer.getData('text');
-			if(!btnOnBtn)
+			if(!btnOnBtn){
 				clearPlayerBox(data);
-			btnPlayerMove = false;
+			}
+			e.originalEvent.dataTransfer.clearData('text');
 		})
+
+		// 벤치에 넣어주는 메소드
+		function putInBench(data, e){
+		
+					clearPlayerBox(data);
+		
+		let str = playerBoxFactorymethod(data);
+		let plnum1= e.originalEvent.dataTransfer.getData('text')
+		for(let j of $bench.children()){
+			if($(j).data('plnum')==plnum1){
+				return;
+			}
+		}
+		btnPlayer = $('.btn-player');
+		
+		btnPlayer.on("dragstart", (e)=>{
+		e.originalEvent.dataTransfer.setData("text", $(e.target).data('plnum'))
+		// e.originalEvent.dataTransfer.effectAllowed ="move";
+		btnPlayerMove = true;
+		})
+		btnPlayer.on("dragend", (e)=>{
+			let data = e.originalEvent.dataTransfer.getData('text');
+			if(!btnOnBtn){
+				clearPlayerBox(data);
+			}
+			e.originalEvent.dataTransfer.clearData('text');
+		})
+
+
+		
 		btnPlayer.on("drop", (e)=>{
+			
 			if(btnPlayerMove){
+				e.stopPropagation();
 				btnOnBtn = true;
 				let plnum1 = e.originalEvent.dataTransfer.getData('text');
 				let plnum2 = $(e.originalEvent.target).data("plnum");
 				swapBtnPlayer(plnum1, plnum2);
 				
 			}
+			
 		})
-	
-		
 	}
 	function swapBtnPlayer(plnum1, plnum2){
+		if(plnum1== plnum2){
+			return;
+		}
 		btnPlayer = $('.btn-player');
 		let btn1, btn2;
 		for (let item of btnPlayer) {
@@ -369,25 +462,22 @@
 				btn2 = item;
 			}
 		}
-		const tmp = $(btn1).clone();
-		$(btn2).parent().append(tmp);
-		$(btn1).parent().append(btn2);
-
-
+		
+		$(btn2).parent().append($(btn1).clone());
+		$(btn1).parent().append($(btn2).clone());
+		$(btn1).remove();
+		$(btn2).remove();
 	}
-
 
 	// 현재 입력된 드래그 버튼 plnum인수로 받아 지워주는 매서드
 	function clearPlayerBox(data){
-		for(let j of contentBox){
+		for(let j of $contentBox){
 			let btn =  $(j).find('.btn');
 			if(btn.data('plnum')==data){
 				$(j).html('');
 			}
 	}
 }
-	
-	
 	btnPlayer.on("dragstart", (e)=>{
 		e.originalEvent.dataTransfer.setData("text", $(e.target).data('plnum'))
 		// e.originalEvent.dataTransfer.effectAllowed ="move";
@@ -396,6 +486,15 @@
 	btnPlayer.on("dragend", (e)=>{
 		let data = e.originalEvent.dataTransfer.getData('text');
 		clearPlayerBox(data);
+	})
+
+	// 체크박스 이벤트
+	$('.checkbox-DH').click(function(e){
+		if($(this).is(':checked')){
+			$('.right-line_up .line-DH').show();
+		}else{
+			$('.right-line_up .line-DH').hide();
+		}
 	})
 	
 	
