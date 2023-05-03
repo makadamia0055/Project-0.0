@@ -30,9 +30,20 @@
 			border-left: 200px solid lightgray;
 			border-right: 200px solid transparent;
 		} */
+
+		.container-bsPark{
+			width: 1400px;
+			
+		}
 		.right-panel{
 			float: right;
 		}
+		.right-panel .container-line_up{
+			padding : 5px;
+			border-top: 3px double #dee2e6;
+		}
+
+
 		.box-player{
 			border: 1px solid black;
 			background-color: rgb(255, 255, 255);
@@ -115,6 +126,7 @@
 			position: absolute;
 			bottom: -100px;
 			border: 1px solid black;
+			border-radius: 5px;
 			width: 1000px;
 			height: 100px;
 
@@ -125,6 +137,19 @@
 		.table-position .select-position{
 			width: 100%;
 		}
+		.box-name{
+			font-weight: 700;
+			font-size: 12px;
+		}
+		.box-name .bakNum-player{
+			color: darkblue;
+			font-weight: 700;
+			font-size: 9px;
+		}
+		.right-panel tr[data-num="10"]{
+			display: none;
+		}
+		
 		
 	</style>
 </head>
@@ -139,32 +164,39 @@
 			<div>선수 리스트</div>
 			<div class="d-flex flex-wrap">
 				<a href="#" class="box-player" draggable="true" data-plnum="1">
-					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
-					<div class="name-player">11.선수이름1</div>
-					<div class="">
+					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt="">
+					<br>
+					<div class="box-name">
+						<span class="bakNum-player">11</span>.
+						<span class="name-player">선수이름1</span>
+					</div>
+					<div class="box-position_hope">
 						<span class="badge badge-pill badge-danger">투</span>
 					</div>
-					
-
 				</a>
 				<a href="#" class="box-player" draggable="true" data-plnum="2">
-					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
-					<div class="name-player">22.선수이름2</div>
-					<div class="">
+					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt="">
+					<br>
+					<div class="box-name">
+						<span class="bakNum-player">22</span>.
+						<span class="name-player">선수이름2</span>
+					</div>
+					<div class="box-position_hope">
 						<span class="badge badge-pill badge-danger">투</span>
 					</div>
-					
-
 				</a>
 				<a href="#" class="box-player" draggable="true" data-plnum="3">
-					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt=""><br>
-					<div class="name-player">33.선수이름3</div>
-					<div class="">
+					<img src="./고양이 로고.png" draggable="false" class="icon-player " alt="">
+					<br>
+					<div class="box-name">
+						<span class="bakNum-player">33</span>.
+						<span class="name-player">선수이름3</span>
+					</div>
+					<div class="box-position_hope">
 						<span class="badge badge-pill badge-danger">투</span>
 					</div>
-					
-
 				</a>
+				
 				
 				
 
@@ -176,7 +208,7 @@
 
 		</aside>
 	<section>
-		<div>
+		<div class="container-bsPark">
 			<div class="bsPark">
 				<div class="">
 					<div class="table-position" data-position="1">
@@ -408,9 +440,9 @@
 					</div>
 
 				</div>
-				<div class="bench d-flex clear-fix">
+				<div class="bench">
 					<div class="title-bench">벤치 <button class="btn btn-sm btn-dark btn-bench-append">추가</button>
-						
+					<div class="d-flex content-bench"></div>	
 					</div>
 					
 
@@ -420,66 +452,83 @@
 
 			</div>
 			<div class="right-panel">
-				<div class="container-line_up">
-					<span>선발 라인업 <button class="btn btn-success btn-scan">새로고침</button></span>
-					<table class="table">
+				<div class="container-line_up text-center">
+					<span class="">선발 라인업 <button class="btn btn-success btn-sm btn-scan">새로고침</button></span>
+					<table class="table" id="lineupTable">
 						<thead>
 							<tr>
 								<th>타순</th>
+								<th>등번호</th>
 								<th>선수</th>
 								<th>포지션</th>
 							</tr>
 							<tr data-num="1">
 								<td class="num-battingOrd">1</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="2">
 								<td class="num-battingOrd">2</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="3">
 								<td class="num-battingOrd">3</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="4">
 								<td class="num-battingOrd">4</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="5">
 								<td class="num-battingOrd">5</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="6">
 								<td class="num-battingOrd">6</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="7">
 								<td class="num-battingOrd">7</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="8">
 								<td class="num-battingOrd">8</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="9">
 								<td class="num-battingOrd">9</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
 							<tr data-num="10">
-								<td class="num-battingOrd">10</td>
-								<td class="name-player">선수명</td>
-								<td class="name-position">포지션명</td>
+								<td class="num-battingOrd">P</td>
+								<td class="bakNum-player"></td>
+								<td class="name-player"></td>
+								<td class="name-position"></td>
 							</tr>
-							
+							<tr data-num="11">
+								<td class="num-battingOrd">벤치</td>
+								<td class="benchMem" colspan="3">
+									
+
+								</td>
+							</tr>
 						</thead>
 					</table>
 
@@ -589,7 +638,7 @@
 	let $tableTd = $('.table-position');
 	let $contentBox = $('.content-position')
 	let $btnPlayer = $('.btn-player');
-	let $bench = $('.bench');
+	let $bench = $('.content-bench');
 	
 	let btnPlayerMove = false;
 	let btnOnBtn = false;
@@ -631,46 +680,78 @@
 			for(let tmp of $tableTd){
 				let ml_tp_num = $(tmp).find('.select-position option:selected').val();
 				let ml_battingorder = $(tmp).find('.select-hitorder option:selected').val();
+				// 선수 선택 x일때 객체 만들지 않기
+				if(ml_tp_num==0)
+					continue;
 				let ml_type = '선발';
 				let ml_po_num = $(tmp).data('position');
+				// 배팅 순서 값 없을 때 투수이며, 지명타자 있는 경우인지 체크해서 객체 안만들기
+				if(ml_battingorder==0&&ml_po_num!=0&&!$('.checkbox-DH').is(":checked"))
+					continue;
 
 				let tmpObj = new LUObj(ml_tp_num, ml_battingorder, ml_type, ml_po_num);
 				this.line.push(tmpObj);
 			}
 		},
 		scanBench(){
-			scanBench = [];
+			benchLine = [];
 			for(let tmp of $bench){
 				let ml_tp_num = $(tmp).find('.select-position option:selected').val();
-				let ml_type = '벤치';
 
 				let tmpObj = new LUObj(ml_tp_num);
+				tmpObj.ml_type = '벤치';
 				this.benchLine.push(tmpObj);
 			}
 		},
 		
 		// 설정된 라인업 값을 라인업에 출력하는 함수
 		print(){
+			// 정규 라인 선수 프린트
 			for(let tmp of this.line){
-				if(tmp.ml_battingorder==0 && tmp.ml_po_num!=1)
+				// 배팅 오더 없는 경우 건너뛰기
+				if(tmp.ml_battingorder==0 && tmp.ml_po_num!=1){
 					continue;
+				}
+					
+				let hitNum = tmp.ml_battingorder;
+				// 투수의 경우 체크
+				if($('.checkbox-DH').is(":checked")&&tmp.ml_po_num==1&&tmp.ml_battingorder==0){
+					hitNum = 10;
+					console.log(hitNum)
+				}
 
-				let num = tmp.ml_battingorder;
+
 				let poNum = tmp.ml_po_num;
 				let $tr = $('.container-line_up table tr').filter(function(e){
-					if($(this).data('num')==num){
+					if($(this).data('num')==hitNum){
 						return this;
 					}
 				});
-				console.log($tr);
-				let playerN = $playerBox.filter(function(){
+				let tmpPlayerBox = $playerBox.filter(function(){
 					if($(this).data('plnum')==tmp.ml_tp_num)
 						return this;
-				}).find('.name-player').text();
+				});
+				let playerN = tmpPlayerBox.find('.name-player').text();
+				let playerB = tmpPlayerBox.find('.bakNum-player').text();
 				$tr.find('.name-player').text(playerN);
+				$tr.find('.bakNum-player').text(playerB);
 				$tr.find('.name-position').text(positionMap.get(poNum));
-				console.log("poNum : " + positionMap.get(poNum))
 			}
+			// 벤치 멤버 프린트
+			let benchStr='';
+			let benchCol =  $('#lineupTable').find('.benchMem');
+			for(let tmp of this.benchLine){
+				let tmpPlayerBox = $playerBox.filter(function(){
+					if($(this).data('plnum')==tmp.ml_tp_num)
+					return this;
+				});
+				let playerB = tmpPlayerBox.find('.bakNum-player').text();
+			
+				benchStr += '<span class="badge badge-pill badge-success">'+playerB+'</span>';
+			}
+			
+			benchCol.append(benchStr);
+			
 		}
 	}
 	function LUObj(ml_tp_num){
@@ -687,18 +768,22 @@
 
 	}
 	function clearBoard(){
-		$('.container-line_up table tr')
+		let $td = $('.container-line_up table td');
+		for(let tmp of $td){
+			$(tmp).not('td.num-battingOrd').empty();
+		}
 	}
 	
 
 	// btn-bench-append
 	let benchSeat = 0;
-	let playerSelector = '<select class="select-position" name="" id="positionBench'+benchSeat+'">'
+	
+	$('.btn-bench-append').on('click', function(e){
+		let playerSelector = '<select class="select-position" name="" id="positionBench'+benchSeat+'">'
 		+'<option class="defaultN" value="0">-선수-</option>'					
 		+'<option value="1">1번 누구</option>'
 		+'</select>';
-	$('.btn-bench-append').on('click', function(e){
-		benchSeat++;
+		++benchSeat;
 		e.preventDefault();
 		$($bench).append(playerSelector);
 
@@ -706,17 +791,40 @@
 		checkDuplicatePO(this);
 		})
 	})
-
+checkbox_DH_toggler(true);
+function checkbox_DH_toggler(bool){
+	if(bool){
+		// 지명타자 칸 얼리기
+		$('#position10').val(0);
+		$('#position10 option').not(':selected').attr('disabled', 'disabled');
+		$('#order-hit10').val(0);
+		$('#order-hit10 option').not(':selected').attr('disabled', 'disabled');
+	}else{
+			// 지명타자 칸 해동
+			$('#position10 option').not(':selected').removeAttr('disabled');
+			$('#order-hit10 option').not(':selected').removeAttr('disabled');
+	}
+	
+}
 // 체크박스 이벤트
 $('.checkbox-DH').click(function(e){
 		if($(this).is(':checked')){
 			$('.right-line_up .line-DH').show();
+			// 투수칸 타순 얼리기
 			$('#order-hit1').val(0);
 			$('#order-hit1 option').not(':selected').attr('disabled', 'disabled');
+			
+			checkbox_DH_toggler(false);
+			// 라인업 10열 나오게하기
+			$('.right-panel tr[data-num="10"]').show();
 		}else{
 			$('.right-line_up .line-DH').hide();
-			$('#order-hit1 option').not(':selected').attr('disabled', '');
-
+			// 투수칸 타순 해동
+			$('#order-hit1 option').not(':selected').removeAttr('disabled');
+			
+			checkbox_DH_toggler(true);
+			// 라인업 10열 숨기기
+			$('.right-panel tr[data-num="10"]').hide();
 		}
 	})
 	
@@ -750,8 +858,10 @@ function checkDuplicatePO(data){
 }
 $('.btn-scan').click(function(e){
 		LineUp.scan();
-		LineUp.print();
 		LineUp.scanBench();
+		clearBoard();
+		LineUp.print();
+		console.log(LineUp.line)
 	})
 
 	// $playerBox.on("dragstart", function(e){
